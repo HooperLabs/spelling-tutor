@@ -1,0 +1,53 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.pikespeacock.spellingtutor.SettingsActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/spellingWordsLabel"
+        android:id="@+id/titleTextView"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/spellingWordsListView"
+        android:longClickable="true"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/addWordEditText"
+        android:layout_above="@+id/deleteAllButton" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/addWordEditText"
+        android:layout_below="@+id/titleTextView"
+        android:layout_alignParentStart="true"
+        android:hint="@string/addWordHint" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/addWordButton"
+        android:id="@+id/addWordButton"
+        android:layout_alignTop="@+id/addWordEditText"
+        android:layout_alignBottom="@+id/addWordEditText"
+        android:layout_alignParentEnd="true"
+        android:layout_toEndOf="@+id/addWordEditText" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delete All"
+        android:id="@+id/deleteAllButton"
+        android:layout_alignParentStart="true"
+        android:layout_alignEnd="@+id/addWordButton"
+        android:layout_alignParentBottom="true" />
+</RelativeLayout>
