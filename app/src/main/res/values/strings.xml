@@ -2,15 +2,19 @@
 <resources>
 
     <string name="app_name">Spelling Tutor</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">Spelling Words</string>
     <string name="listen_button">Listen</string>
     <string name="check_button">Check</string>
-    <string name="correct_words_hint">Correct Words</string>
-    <string name="title_activity_settings">Settings</string>
+    <string name="correct_words_hint">Spelling words list will appear here…</string>
+    <string name="title_activity_settings">Spelling Words</string>
     <string name="spellingWordsLabel">Spelling Words</string>
     <string name="addWordHint">Type new word here…</string>
     <string name="addWordButton">Add Word</string>
     <string name="defaultSpellingWord">dog</string>
     <string name="banner_ad_unit_id">ca-app-pub-1513122249606515/8034661187</string>
+    <string name="correct_word_list_title">Correct Words List…</string>
+    <string name="defaultDescription">Default</string>
+    <string name="enterSpellingWordHint">Enter Spelling Word</string>
+    <string name="action_restart">Restart</string>
 
 </resources>

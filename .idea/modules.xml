@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/SpellingTutor.iml" filepath="$PROJECT_DIR$/SpellingTutor.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/spelling-tutor.iml" filepath="$PROJECT_DIR$/spelling-tutor.iml" />
     </modules>
   </component>
 </project>

@@ -59,8 +59,6 @@ public class SettingsActivity extends ActionBarActivity {
         );
         spellingWordsListView.setAdapter(arrayAdapter);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         addWordButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -101,7 +99,7 @@ public class SettingsActivity extends ActionBarActivity {
 
                 // Show dialog
                 builder.setTitle("Confirm Delete Word")
-                         .setMessage("Delete this word?")
+                        .setMessage("Delete this word?")
                         .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {

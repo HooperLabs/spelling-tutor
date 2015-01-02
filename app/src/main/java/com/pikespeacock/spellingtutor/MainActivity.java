@@ -1,9 +1,6 @@
 package com.pikespeacock.spellingtutor;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -12,14 +9,13 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -30,19 +26,18 @@ import java.util.Set;
 
 public class MainActivity extends ActionBarActivity {
 
-    public final static String EXTRA_MESSAGE = "com.pikespeacock.spellingtutor.MESSAGE";
-    private static final String MY_TEST_DEVICE_ID = "B3EEABB8EE11C2BE770B684D95219ECB";
+//    private static final String MY_TEST_DEVICE_ID = "B3EEABB8EE11C2BE770B684D95219ECB";
 
-
-    public ArrayList<String> spellingWordsArrayList = new ArrayList<String>();
+    public ArrayList<String> spellingWordsArrayList = new ArrayList<>();
     public Set<String> spellingWordsSet;
     public TextToSpeech textToSpeech;
     public int currentWordIndex = 0;
     public SharedPreferences preferences;
     public EditText input_text;
     public EditText correct_words_text;
-    public Button listen_button;
-    public Button check_button;
+    public ImageView listen_image_view;
+    public ImageView check_image_vew;
+    //    AlertDialog.Builder builder;
     private AdView adView;
 
     @Override
@@ -60,8 +55,10 @@ public class MainActivity extends ActionBarActivity {
 
         input_text = (EditText) findViewById(R.id.inputText);
         correct_words_text = (EditText) findViewById(R.id.correctWordsText);
-        listen_button = (Button) findViewById(R.id.listenButton);
-        check_button = (Button) findViewById(R.id.checkButton);
+//        listen_button = (Button) findViewById(R.id.listenButton);
+//        check_button = (Button) findViewById(R.id.checkButton);
+        listen_image_view = (ImageView) findViewById(R.id.listenImageView);
+        check_image_vew = (ImageView) findViewById(R.id.checkImageView);
 
         textToSpeech = new TextToSpeech(MainActivity.this, new TextToSpeech.OnInitListener() {
             public void onInit(int status) {
@@ -71,12 +68,26 @@ public class MainActivity extends ActionBarActivity {
             }
         });
 
-        listen_button.setOnClickListener(new View.OnClickListener() {
+        listen_image_view.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
                 textToSpeech.speak(MainActivity.this.spellingWordsArrayList.get(currentWordIndex), TextToSpeech.QUEUE_FLUSH, null);
             }
         });
-        check_button.setOnClickListener(new View.OnClickListener() {
+
+        check_image_vew.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                checkWord();
+            }
+        });
+
+        listen_image_view.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                textToSpeech.speak(MainActivity.this.spellingWordsArrayList.get(currentWordIndex), TextToSpeech.QUEUE_FLUSH, null);
+            }
+        });
+        check_image_vew.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 checkWord();
             }
@@ -98,8 +109,9 @@ public class MainActivity extends ActionBarActivity {
     public void checkWord() {
 
         EditText correct_words_text = (EditText) findViewById(R.id.correctWordsText);
-        Button listen_button = (Button) findViewById(R.id.listenButton);
-        Button check_button = (Button) findViewById(R.id.checkButton);
+//        Button listen_button = (Button) findViewById(R.id.listenButton);
+//        Button check_button = (Button) findViewById(R.id.checkButton);
+        ImageView check_ImageView = (ImageView) findViewById(R.id.checkImageView);
 
         if (input_text.getText().toString().equals(spellingWordsArrayList.get(currentWordIndex))) {
 
@@ -111,8 +123,8 @@ public class MainActivity extends ActionBarActivity {
                 newWord();
             } else {
                 textToSpeech.speak("Congratulations!  You have spelled every word correctly!", TextToSpeech.QUEUE_ADD, null);
-                check_button.setEnabled(false);
-                listen_button.setEnabled(false);
+                check_ImageView.setEnabled(false);
+                listen_image_view.setEnabled(false);
                 input_text.setEnabled(false);
                 input_text.setText("Congratulations!");
             }
@@ -128,7 +140,7 @@ public class MainActivity extends ActionBarActivity {
         String defaultWord = getString(R.string.defaultSpellingWord);
 
         preferences = getSharedPreferences("myData", Context.MODE_PRIVATE);
-        spellingWordsSet = preferences.getStringSet("spellingWords", new HashSet<String>(Arrays.asList(defaultWord)));
+        spellingWordsSet = preferences.getStringSet("spellingWords", new HashSet<>(Arrays.asList(defaultWord)));
 
         if (spellingWordsSet.size() <= 0) {
             spellingWordsSet.add(defaultWord);
@@ -140,12 +152,13 @@ public class MainActivity extends ActionBarActivity {
         }
 
         for (String str : spellingWordsSet) {
+            assert spellingWordsArrayList != null;
             spellingWordsArrayList.add(str);
         }
 
         input_text.setEnabled(true);
-        listen_button.setEnabled(true);
-        check_button.setEnabled(true);
+        listen_image_view.setEnabled(true);
+        check_image_vew.setEnabled(true);
 
         correct_words_text.setText("");
 
@@ -200,13 +213,38 @@ public class MainActivity extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            Intent intent = new Intent(this, SettingsActivity.class);
-            EditText input_text = (EditText) findViewById(R.id.inputText);
-            String message = input_text.getText().toString();
-            intent.putExtra(EXTRA_MESSAGE, message);
-            startActivity(intent);
+            startActivity(new Intent(this, SettingsActivity.class));
             return true;
         }
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_restart) {
+            initialize();
+            return true;
+        }
+
+        // TODO:    Setup PIN protect for word list.  Parent will be able to prevent kid from looking at the list while testing
+/*
+        if (id == R.id.action_lock_settings) {
+            builder.setTitle("Lock Word List")
+                    .setMessage("Enter a PIN to lock access to the spelling words list settings.")
+                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            // User canceled "Delete All" dialog
+                        }
+                    })
+                    .setPositiveButton("Set PIN", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    });
+            AlertDialog dialog = builder.create();
+            dialog.show();
+
+        }
+®*/
 
         return super.onOptionsItemSelected(item);
     }

@@ -1,62 +1,89 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:ads="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity">
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
 
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/listen_button"
-        android:id="@+id/listenButton"
-        android:elegantTextHeight="false"
-        android:clickable="true"
-        android:onClick="onClick"
-        style="@android:style/Widget.DeviceDefault.Button"
-        android:layout_below="@+id/inputText"
-        android:layout_alignParentStart="true" />
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/adView"
+        android:orientation="vertical"
+        android:padding="16dp">
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textNoSuggestions|none"
-        android:ems="10"
-        android:id="@+id/inputText"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="25dp"
-        android:hint="Enter Spelling Word" />
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/check_button"
-        android:id="@+id/checkButton"
-        android:layout_alignBottom="@+id/listenButton"
-        android:layout_alignParentEnd="true"
-        android:onClick="onClick" />
+            <EditText
+                android:id="@+id/inputText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="@string/enterSpellingWordHint"
+                android:inputType="textNoSuggestions|none" />
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textMultiLine"
-        android:enabled="false"
-        android:ems="10"
-        android:id="@+id/correctWordsText"
-        android:hint="@string/correct_words_hint"
-        android:layout_below="@+id/listenButton"
-        android:layout_alignParentStart="true" />
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight=".3"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/checkImageView"
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:contentDescription="@string/defaultDescription"
+                    android:src="@android:drawable/ic_menu_send" />
+
+                <ImageView
+                    android:id="@+id/listenImageView"
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:contentDescription="@string/defaultDescription"
+                    android:src="@android:drawable/ic_lock_silent_mode_off" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <Space
+            android:layout_width="10dp"
+            android:layout_height="10dp" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/correct_word_list_title"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <EditText
+            android:id="@+id/correctWordsText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:enabled="false"
+            android:hint="@string/correct_words_hint"
+            android:inputType="textMultiLine" />
+
+    </LinearLayout>
 
     <com.google.android.gms.ads.AdView
         android:id="@+id/adView"
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        ads:adUnitId="@string/banner_ad_unit_id"
-        ads:adSize="BANNER" />
+        android:layout_alignParentEnd="true"
+        android:baselineAligned="false"
+        ads:adSize="SMART_BANNER"
+        ads:adUnitId="@string/banner_ad_unit_id" />
 
 </RelativeLayout>
